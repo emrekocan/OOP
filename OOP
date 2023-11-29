@@ -1,0 +1,53 @@
+class Account:
+    def __init__(self, name, number, balance):
+        self.name = name
+        self.number = number
+        self.balance = balance
+
+    def accountInfo(self):
+        print("Name: ", self.name)
+        print("Number: ", self.number)
+        print("Balance: ", self.balance)
+
+    def withdraw(self, amount):
+        if (self.balance - amount < 0):
+            print("Insufficient balance.")
+        else:
+            self.balance -= amount
+            print("Updated balance:", self.balance)
+
+    def deposit(self, amount):
+        self.balance += amount
+        print("New balance: ", self.balance)
+
+    def __str__(self):
+        # Custom string representation for the object
+        return f"Account(Name: {self.name}, Number: {self.number}, Balance: {self.balance})"
+
+
+class SavingsAccount(Account):
+    # Inheriting from the Account class
+
+    def __init__(self, name, number, balance, interest_rate):
+        # Call the constructor of the base class
+        super().__init__(name, number, balance)
+        # Additional attribute for SavingsAccount
+        self.interest_rate = interest_rate
+
+    def add_interest(self):
+        # Method to add interest to the account balance
+        interest_amount = self.balance * self.interest_rate
+        self.deposit(interest_amount)
+        print(f"Interest added: {interest_amount}")
+
+# Create a SavingsAccount instance
+savings_account = SavingsAccount("Emre Koçan", 123456, 1000, 0.05)
+
+# Display account information using the overridden __str__ method
+print(savings_account)
+
+# Deposit money into the account
+savings_account.deposit(800)
+
+# Add interest to the savings account
+savings_account.add_interest()
